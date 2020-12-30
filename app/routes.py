@@ -1,6 +1,6 @@
 from app import app
 from app import db
-from app.model import Info, Kol
+from app.model import Order, Kol
 from app import mail
 from flask import request
 from flask import jsonify
@@ -64,9 +64,9 @@ def new():
     try:
         r = request.json
         if r['email']:
-            new_info = Info(name=r['name'], phone=r['phone'], email=r['email'], kol=r['kol'])
+            new_info = Order(name=r['name'], phone=r['phone'], email=r['email'], kol=r['kol'])
         else:
-            new_info = Info(name=r['name'], phone=r['phone'], kol=r['kol'])
+            new_info = Order(name=r['name'], phone=r['phone'], kol=r['kol'])
         db.session.add(new_info)
         db.session.commit()
         send_mail(phone=r['phone'], email=r['email'], kol=r['kol'], name=r['name'])
@@ -81,7 +81,7 @@ def new():
 def all():
     try:
         result = []
-        orders = Info.query.all()
+        orders = Order.query.all()
         for i in orders:
             result.append({"name": i.name,
                            "phone": i.phone,
