@@ -1,7 +1,7 @@
 from app import db
 
 
-class Order(db.Model):git
+class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     phone = db.Column(db.String(64))
